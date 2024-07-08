@@ -11,6 +11,9 @@
     "vite": "^5.3.3"
   },
   "dependencies": {
+    "@tonconnect/protocol": "^2.2.6",
+    "@tonconnect/sdk": "^3.0.3",
+    "@tonconnect/ui": "^2.0.5",
     "@wagmi/connectors": "^5.0.21",
     "@wagmi/core": "^2.11.6",
     "@web3modal/wagmi": "^5.0.6",
