@@ -1,3 +1,33 @@
+import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi";
+
+import { mainnet, arbitrum } from "viem/chains";
+import { reconnect } from "@wagmi/core";
+
+// 1. Get a project ID at https://cloud.walletconnect.com
+const projectId = "665e493a7c111924c567dce3e2480593";
+
+// 2. Create wagmiConfig
+const metadata = {
+  name: "Web3Modal",
+  description: "Web3Modal Example",
+  url: "https://web3modal.com", // origin must match your domain & subdomain.
+  icons: ["https://avatars.githubusercontent.com/u/37784886"],
+};
+
+const chains = [mainnet, arbitrum];
+export const config = defaultWagmiConfig({
+  chains,
+  projectId,
+  metadata,
+});
+reconnect(config);
+
+// 3. Create modal
+const modal = createWeb3Modal({
+  wagmiConfig: config,
+  projectId,
+});
+
 const caves = document.querySelectorAll(".cave");
 const playerScore = document.querySelector(".score");
 const moles = document.querySelectorAll(".mole");
@@ -9,6 +39,15 @@ let timeUp = false;
 let score = 0;
 let highScore = 0;
 let countdown;
+
+modal.subscribeEvents((event) => {
+  if (event.data.event === "CONNECT_SUCCESS") {
+    startBtn.style.display = "block";
+  }
+  if (event.data.event === "MODAL_CLOSE" && !event.data.properties.connected) {
+    startBtn.style.display = "none";
+  }
+});
 
 function popUpTime(min, max) {
   return Math.round(Math.random() * (max - min) + min);
@@ -36,9 +75,13 @@ function popUp() {
 }
 
 function startGame() {
+  if (!modal.getIsConnectedState()) {
+    modal.open();
+    return;
+  }
   if (startBtn) startBtn.style.display = "none";
   if (playerScore) playerScore.textContent = "0";
-  if (timeLeftDisplay) timeLeftDisplay.textContent = "10"; // 重置倒數計時器
+  if (timeLeftDisplay) timeLeftDisplay.textContent = "10";
   timeUp = false;
   score = 0;
   popUp();
