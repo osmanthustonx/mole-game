@@ -32,7 +32,19 @@
       </div>
       <button class="start-btn">Start!</button>
       <p>High Score: <span class="high-score">0</span></p>
-      <w3m-button></w3m-button>
+      <div id="ton-connect"></div>
+      <!-- <w3m-button></w3m-button> -->
     </div>
+    <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
+    <script>
+
+      const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+        manifestUrl:
+          "https://osmanthustonx.github.io/mole-game/tonconnect-manifest.json",
+        buttonRootId: "ton-connect",
+      });
+
+      console.log(tonConnectUI)
+    </script>
   </body>
 </html>
