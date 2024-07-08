@@ -69,3 +69,7 @@ function clickClick(e) {
 }
 
 moles.forEach((mole) => mole.addEventListener("click", clickClick));
+
+startBtn.addEventListener("click", () => {
+  startGame();
+});
