@@ -2,8 +2,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
+  "homepage": "https://osmanthustonx.github.io/mole-game/",
   "devDependencies": {
     "vite": "^5.3.3"
   },
@@ -11,6 +14,7 @@
     "@wagmi/connectors": "^5.0.21",
     "@wagmi/core": "^2.11.6",
     "@web3modal/wagmi": "^5.0.6",
+    "gh-pages": "^6.1.1",
     "viem": "^2.17.3"
   }
 }
