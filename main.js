@@ -81,7 +81,7 @@ function startGame() {
   //   modal.open();
   //   return;
   // }
-  if (playBtn) playBtn.style.display = "none";
+  if (playBtn) playBtn.style.visibility = "hidden";
   if (playerScore) playerScore.textContent = "0";
   if (timeLeftDisplay) timeLeftDisplay.textContent = "10";
   timeUp = false;
@@ -95,7 +95,7 @@ function startGame() {
       if (timeLeft <= 0) {
         clearInterval(countdown);
         timeUp = true;
-        if (playBtn) playBtn.style.display = "block";
+        if (playBtn) playBtn.style.visibility = "visible";
         if (score >= highScore) {
           highScore = score;
           if (highScoreDisplay)

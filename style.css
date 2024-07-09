@@ -79,8 +79,6 @@ p {
 }
 
 .play-btn {
-  /* display: none; */
-  display: block;
   width: 50%;
   margin-top: 20px;
   padding: 10px 20px;
