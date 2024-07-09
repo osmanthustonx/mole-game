@@ -31,7 +31,8 @@ const modal = createWeb3Modal({
 const caves = document.querySelectorAll(".cave");
 const playerScore = document.querySelector(".score");
 const moles = document.querySelectorAll(".mole");
-const startBtn = document.querySelector(".start-btn");
+const playBtn = document.querySelector(".play-btn");
+const faceImage = document.querySelector(".face");
 const timeLeftDisplay = document.querySelector(".time-left");
 const highScoreDisplay = document.querySelector(".high-score");
 let lastCave;
@@ -40,14 +41,14 @@ let score = 0;
 let highScore = 0;
 let countdown;
 
-modal.subscribeEvents((event) => {
-  if (event.data.event === "CONNECT_SUCCESS") {
-    startBtn.style.display = "block";
-  }
-  if (event.data.event === "MODAL_CLOSE" && !event.data.properties.connected) {
-    startBtn.style.display = "none";
-  }
-});
+// modal.subscribeEvents((event) => {
+//   if (event.data.event === "CONNECT_SUCCESS") {
+//     playBtn.style.display = "block";
+//   }
+//   if (event.data.event === "MODAL_CLOSE" && !event.data.properties.connected) {
+//     playBtn.style.display = "none";
+//   }
+// });
 
 function popUpTime(min, max) {
   return Math.round(Math.random() * (max - min) + min);
@@ -68,6 +69,7 @@ function popUp() {
   const time = popUpTime(200, 1000);
   const cave = randomCave(caves);
   cave.classList.add("up");
+  if (faceImage) faceImage.src = "./off.png"; 
   setTimeout(() => {
     cave.classList.remove("up");
     if (!timeUp) popUp();
@@ -75,11 +77,11 @@ function popUp() {
 }
 
 function startGame() {
-  if (!modal.getIsConnectedState()) {
-    modal.open();
-    return;
-  }
-  if (startBtn) startBtn.style.display = "none";
+  // if (!modal.getIsConnectedState()) {
+  //   modal.open();
+  //   return;
+  // }
+  if (playBtn) playBtn.style.display = "none";
   if (playerScore) playerScore.textContent = "0";
   if (timeLeftDisplay) timeLeftDisplay.textContent = "10";
   timeUp = false;
@@ -93,7 +95,7 @@ function startGame() {
       if (timeLeft <= 0) {
         clearInterval(countdown);
         timeUp = true;
-        if (startBtn) startBtn.style.display = "block";
+        if (playBtn) playBtn.style.display = "block";
         if (score >= highScore) {
           highScore = score;
           if (highScoreDisplay)
@@ -109,10 +111,11 @@ function clickClick(e) {
   score++;
   this.classList.remove("up");
   playerScore.textContent = score;
+  if (faceImage) faceImage.src = "./on.png"; 
 }
 
 moles.forEach((mole) => mole.addEventListener("click", clickClick));
 
-startBtn.addEventListener("click", () => {
+playBtn.addEventListener("click", () => {
   startGame();
 });
