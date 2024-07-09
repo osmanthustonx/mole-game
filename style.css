@@ -59,6 +59,21 @@ p {
   transition: top 0.3s;
 }
 
+.mole::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+.mole:active::after {
+  opacity: 1;
+}
 .cave.up .mole {
   top: 0;
 }
@@ -70,19 +85,18 @@ p {
   margin-top: 20px;
   padding: 10px 20px;
   cursor: pointer;
-  background:  linear-gradient(90deg, #FFF2AD 0%, #B3E4FF 100%);
+  background: linear-gradient(90deg, #fff2ad 0%, #b3e4ff 100%);
   border: none;
   border-radius: 28px;
   font-size: 20px;
   text-align: center;
 }
 
-.face-score{
+.face-score {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .score-container {
@@ -96,7 +110,7 @@ p {
   position: relative;
   z-index: 1;
   width: 100%;
-  height:80%;
+  height: 80%;
   object-fit: cover;
 }
 
